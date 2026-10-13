@@ -31,6 +31,13 @@ def main():
     for user, ip in attempts:
         print(f"  {ip:<16} user={user}")
 
+        if args.csv:
+           with open(args.csv, "w", newline="") as f:
+               writer = csv.writer(f)
+               writer.writerow(["ip", "user"])
+               writer.writerows((ip, user) for user, ip in attempts)
+           print(f"Saved to {args.csv}")
+
 
 if __name__ == "__main__":
     main()
